@@ -15,10 +15,18 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "db:migrate": "node data/scripts/migrate.js",
-    "db:seed": "node data/scripts/seed.js"
+    "db:seed": "node data/scripts/seed.js",
+    "db:import": "tsx data/scripts/importBibleText.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/pg": "^8.10.9",
     "prettier": "^3.1.1",
+    "tsx": "^4.7.0",
     "turbo": "^1.11.2",
     "typescript": "^5.3.3"
   },

@@ -55,7 +55,7 @@ export default function HomePage() {
       </div>
 
       <div className="mt-16 p-6 border rounded-lg bg-muted/50">
-        <h2 className="text-2xl font-bold mb-4">Current Status: In Development</h2>
+        <h2 className="text-2xl font-bold mb-4">Current Status: Phase 2 In Progress</h2>
         <p className="text-muted-foreground mb-4">
           This is an ambitious project to create the most advanced Bible study application in the world.
           We're implementing features in phases:
@@ -63,11 +63,11 @@ export default function HomePage() {
         <ul className="space-y-2 text-sm">
           <li className="flex items-start">
             <span className="mr-2">✅</span>
-            <span>Phase 1: Core foundation and project setup (Current)</span>
+            <span>Phase 1: Core foundation and project setup - Complete!</span>
           </li>
           <li className="flex items-start">
-            <span className="mr-2">⏳</span>
-            <span>Phase 2: Basic Bible reading and search</span>
+            <span className="mr-2">🚧</span>
+            <span>Phase 2: Basic Bible reading and search (Current) - Database connected, Reader built</span>
           </li>
           <li className="flex items-start">
             <span className="mr-2">⏳</span>

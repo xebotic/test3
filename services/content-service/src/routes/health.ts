@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { checkDatabaseHealth } from '../utils/database';
 
 const router = Router();
 
@@ -10,13 +11,16 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
-router.get('/ready', (req: Request, res: Response) => {
-  // TODO: Check database connection
-  res.json({
-    ready: true,
+router.get('/ready', async (req: Request, res: Response) => {
+  const dbHealthy = await checkDatabaseHealth();
+
+  const ready = dbHealthy;
+  const statusCode = ready ? 200 : 503;
+
+  res.status(statusCode).json({
+    ready,
     checks: {
-      database: 'not_implemented',
-      redis: 'not_implemented',
+      database: dbHealthy ? 'healthy' : 'unhealthy',
     },
   });
 });
