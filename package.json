@@ -1,0 +1,29 @@
+{
+  "name": "bible-study-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "World-class Bible study application with advanced linguistic analysis and AI features",
+  "workspaces": [
+    "apps/*",
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:migrate": "node data/scripts/migrate.js",
+    "db:seed": "node data/scripts/seed.js"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.1",
+    "turbo": "^1.11.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

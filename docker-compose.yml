@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: bible-study-postgres
+    environment:
+      POSTGRES_DB: bible_study
+      POSTGRES_USER: bibleuser
+      POSTGRES_PASSWORD: biblepass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./data/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bibleuser -d bible_study"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: bible-study-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin (Database Management UI)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: bible-study-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@biblestudy.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  # Content Service (Node.js API)
+  # content-service:
+  #   build:
+  #     context: .
+  #     dockerfile: services/content-service/Dockerfile
+  #   container_name: bible-study-content-service
+  #   environment:
+  #     NODE_ENV: development
+  #     DATABASE_URL: postgresql://bibleuser:biblepass@postgres:5432/bible_study
+  #     REDIS_URL: redis://redis:6379
+  #     PORT: 3001
+  #   ports:
+  #     - "3001:3001"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./services/content-service:/app
+  #     - /app/node_modules
+
+  # NLP Service (Python FastAPI)
+  # nlp-service:
+  #   build:
+  #     context: .
+  #     dockerfile: services/nlp-service/Dockerfile
+  #   container_name: bible-study-nlp-service
+  #   environment:
+  #     DATABASE_URL: postgresql://bibleuser:biblepass@postgres:5432/bible_study
+  #     REDIS_URL: redis://redis:6379
+  #     PORT: 8000
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./services/nlp-service:/app
+  #     - nlp_models:/app/models
+
+volumes:
+  postgres_data:
+  redis_data:
+  pgadmin_data:
+  # nlp_models:
+
+networks:
+  default:
+    name: bible-study-network
