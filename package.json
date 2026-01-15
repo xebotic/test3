@@ -1,8 +1,32 @@
 {
-  "name": "bible-study-app",
-  "version": "0.1.0",
+  "name": "bible-pro",
+  "version": "0.2.0",
   "private": true,
-  "description": "World-class Bible study application with advanced linguistic analysis and AI features",
+  "description": "The world's most advanced Bible study platform - combining cutting-edge technology with deep biblical scholarship",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xebotic/test3.git"
+  },
+  "keywords": [
+    "bible",
+    "bible-study",
+    "scripture",
+    "theology",
+    "biblical-analysis",
+    "hebrew",
+    "greek",
+    "original-languages",
+    "linguistics",
+    "ai",
+    "machine-learning",
+    "nlp"
+  ],
+  "author": "Bible Pro Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xebotic/test3/issues"
+  },
+  "homepage": "https://github.com/xebotic/test3#readme",
   "workspaces": [
     "apps/*",
     "services/*",
